@@ -1,11 +1,10 @@
 from hashTable import HashTable
 
-# Separate Chaining used to resolve collisions
-# Upon encountering a collision, Separate Chaining will add in the (key, value)
-# into the index where the collision happened, but it will be the next element in the list at
-# that index. So every index in the hash table can store multiple elements.
+# Linear Probing used to resolve collisions
+# Upon encountering a collision in the hash table, Linear Probing will continue adding 1 until
+# it finds an empty index in the hash table. Once it finds an empty index, it inserts the (key, value)
 
-class ChainingHashTable(HashTable):
+class ProbingHashTable(HashTable):
 
     def __init__(self, size, capacity):
         super().__init__(size, capacity)
@@ -18,14 +17,24 @@ class ChainingHashTable(HashTable):
         
         # Get the index from the hash function
         index = self.hash(key)
+        i = 0
 
-        # If the key exists in the table at the index add 1 to the value
-        if key in self.table[index]:
-            self.table[index][key] += 1
-        # Else add in the key at the index
-        else:
-            self.table[index][key] = 1
-            self.size += 1
+        while i < self.capacity:
+            # Linear probing
+            newIndex = (index + i) % self.capacity
+
+            # If the dictionary at newIndex is empty add in the word
+            if not bool(self.table[newIndex]):
+                self.table[newIndex][key] = 1
+                self.size += 1
+                return
+            # If the key exists in the table at the index add 1 to the value
+            elif key in self.table[newIndex]:
+                self.table[newIndex][key] += 1
+                return
+            # Else add one to i
+            else:
+                i += 1
 
     # Function to get the number of times a word appears in the file
     def getNumTimes(self, key):
