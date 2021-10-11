@@ -1,4 +1,4 @@
-# HashTableWordCounter
+# Hash Table Word Counter
 
 This repository contains the Python code for a word counter. It takes the words from a dictionary file and counts how many times each word appears in the file. It uses a hash table to store the words and their number of occurences. The hash table has three different implementations: Separate Chaining, Linear Probing, and Double Hashing.
 
