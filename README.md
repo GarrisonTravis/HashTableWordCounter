@@ -13,3 +13,7 @@ Linear Probing is an Open Addressing or Closed Hashing technique used to resolve
 # Double Hashing
 
 Double Hashing is an Open Addressing or Closed Hashing technique used to resolve collisions in the hash table. It does this by applying a second hash function until it finds an empty index in the hash table. Once it finds an empty index, it inserts the key.
+
+# To Run
+
+python main.py
