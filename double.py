@@ -1,10 +1,10 @@
 from hashTable import HashTable
 
-# Linear Probing used to resolve collisions
-# Upon encountering a collision in the hash table, Linear Probing will continue adding 1 until
+# Double Hashing used to resolve collisions
+# Upon encountering a collision in the hash table, Double Hashing will apply a second hash function until
 # it finds an empty index in the hash table. Once it finds an empty index, it inserts the (key, value)
 
-class ProbingHashTable(HashTable):
+class DoubleHashTable(HashTable):
 
     def __init__(self, size, capacity):
         super().__init__(size, capacity)
@@ -12,17 +12,32 @@ class ProbingHashTable(HashTable):
         # Set up table as a list of dictionaries
         self.table = list(dict() for num in range(self.capacity))
 
+        self.HASH2 = 11
+
+    # Function for double hashing when collision occurs
+    def secondHash(self, word):
+        h = 0
+
+        for ch in word:
+            h = self.HASH2 - ((100 * h + ord(ch)) % self.HASH2)\
+        
+        return h
+
     # Function to insert the word into the hash table
     def insert(self, key):
         
         # Get the index from the hash function
         index = self.hash(key)
+
+        # Get the index from the second hash function
+        index2 = self.secondHash(key)
+
         i = 0
 
         while i < self.capacity:
-            
+
             # i starts at 0, so for the first iteration newIndex will be equal to index
-            newIndex = (index + i) % self.capacity
+            newIndex = (index + i * index2) % self.capacity
 
             # If the dictionary at newIndex is empty add in the word
             if not bool(self.table[newIndex]):

@@ -1,8 +1,10 @@
 from chaining import ChainingHashTable
 from probing import ProbingHashTable
+from double import DoubleHashTable
 
 cht = ChainingHashTable(0, 50)
 pht = ProbingHashTable(0, 54)
+dht = DoubleHashTable(0, 54)
 
 # Open the file
 inFile = open('Dictionary.txt', 'r')
@@ -11,6 +13,7 @@ inFile = open('Dictionary.txt', 'r')
 for line in inFile:
     cht.insert(line.rstrip())
     pht.insert(line.rstrip())
+    dht.insert(line.rstrip())
 
 # Close the file
 inFile.close()
@@ -23,3 +26,7 @@ print(cht.size)
 print("\nPHT:")
 pht.printAll()
 print(pht.size)
+
+print("\nDHT:")
+dht.printAll()
+print(dht.size)
